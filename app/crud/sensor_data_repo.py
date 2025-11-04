@@ -57,7 +57,11 @@ class SensorDataRepository:
             if unit_id:
                 records = await conn.fetch(query, limit, offset, unit_id)
             else:
-                records = await conn.fetch(base_query + order_clause + limit_clause, limit, offset)
+                records = await conn.fetch(
+                    base_query + order_clause + limit_clause,
+                    limit,
+                    offset
+                )
             return [dict(r) for r in records]
 
     async def get_by_unit(
