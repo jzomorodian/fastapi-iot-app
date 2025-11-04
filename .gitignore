@@ -1,0 +1,31 @@
+
+# Mac OSX:
+.DS_Store
+
+# Byte-compiled / optimized / DLL files:
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# VSCode stuff:
+.vscode/
+
+# Log files:
+*.log
+
+# Pytest
+.pytest_cache
+
+# env file
+.env
+
+# Coverage:
+.coverage
+tests/test_coverage/
+htmlcov
+
+.venv

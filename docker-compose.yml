@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  # 1. FastAPI Application Service
+  api:
+    build: .
+    container_name: iot_fastapi_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      # These variables link the app to the database service name 'db'
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: 5432
+    working_dir: /app
+    volumes:
+      - .:/app
+    networks:
+      - internal
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+  # 2. PostgreSQL Database Service
+  db:
+    image: postgres:15-alpine
+    container_name: iot_postgres_db
+    ports:
+      # Only expose for development/debugging
+      - "5432:5432"
+    volumes:
+      # Persist data outside the container
+      - postgres_data:/var/lib/postgresql/data/
+      # Initial data: run SQL scripts on startup
+      - ./init-data.sql:/docker-entrypoint-initdb.d/init-data.sql
+    environment:
+      POSTGRES_DB: iot_db
+      POSTGRES_USER: iot_user
+      POSTGRES_PASSWORD: iot_password
+      # Optional: disable logging for better performance in dev
+      # POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    networks:
+      - internal
+
+volumes:
+  postgres_data:
+
+networks:
+  internal:
