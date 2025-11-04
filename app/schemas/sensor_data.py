@@ -20,8 +20,9 @@ class SensorData(SensorDataBase):
     id: UUID
     timestamp: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = {
+        'from_attributes': True
+    }
 
 
 class SensorDataUpdate(BaseModel):
