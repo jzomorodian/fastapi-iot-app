@@ -18,13 +18,14 @@ class UnitBase(BaseModel):
 class UnitCreate(UnitBase):
     pass
 
-    class Config:
-        json_schema_extra = {
+    model_config = {
+        'json_schema_extra': {
             "example": {
                 "name": "Warehouse-A",
                 "location": "North Dock"
             }
         }
+    }
 
 
 class UnitUpdate(UnitBase):
@@ -32,6 +33,16 @@ class UnitUpdate(UnitBase):
         None,
         description="Status indicating if the unit is currently active."
     )
+
+    model_config = {
+        'json_schema_extra': {
+            "example": {
+                "name": "Warehouse-A",
+                "location": "North Dock",
+                "is_active": True
+            }
+        }
+    }
 
 # --- Response Schemas ---
 
@@ -42,14 +53,15 @@ class UnitRead(UnitBase):
     created_at: datetime
 
     # Allows mapping from database records (asyncpg.Record)
-    class Config:
-        from_attributes = True
-        json_schema_extra = {
+    model_config = {
+        'from_attributes': True,
+        'json_schema_extra': {
             "example": {
-                "id": "b08499c7-5e6a-4d9b-a7f4-21915f01198c",
+                "id": "123e4567-e89b-12d3-a456-426614174000",
                 "name": "Warehouse-A",
                 "location": "North Dock",
                 "is_active": True,
                 "created_at": "2025-01-01T10:00:00"
             }
         }
+    }
