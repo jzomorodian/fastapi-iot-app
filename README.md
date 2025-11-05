@@ -11,7 +11,7 @@ This project implements a CRUD API for IoT units using FastAPI, PostgreSQL with 
 
 ### 1. Build and Run the Stack
 
-1.  **Create the `.env` file:** Copy the contents from the provided `.env.example` (or use the values from step 9 above) into a new file named `.env` in the project root.
+1.  **Create the `.env` file:** Copy the contents from the provided `.env.development` into a new file named `.env` in the project root.
 
 | Name        | Description                  | Type   | Options | Default   |
 | ----------- | ---------------------------- | ------ | ------- | --------- |
